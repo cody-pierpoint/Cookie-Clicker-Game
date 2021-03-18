@@ -11,6 +11,7 @@ public class ClickerHandlerDummy : MonoBehaviour
     [SerializeField] private int cookiesPerTick = 0;
     [SerializeField] private TextMeshProUGUI points;
     [SerializeField] private TextMeshProUGUI upgradeText;
+    [SerializeField] private TextMeshProUGUI autoClickUpgradeText;
 
     //public float speed;
     //public GameObject pointClicker;
@@ -22,11 +23,13 @@ public class ClickerHandlerDummy : MonoBehaviour
     public Button upgradeClickerButton;
     public Button autoClickerButton;
     public int costToUpgrade = 5;
+    public int autoclickCostToUpgrade = 25;
     //private float autoCookieDelay = 10f;
 
     // Start is called before the first frame update
     void Start()
     {
+        UpdateAutoClickText();
         UpdateCookieText();
         UpdateUpgradeText();
         AutoClick();
@@ -45,13 +48,13 @@ public class ClickerHandlerDummy : MonoBehaviour
 
     public void UpgradeUnlocked()
     {
-        if (cookie >= costToUpgrade)
-        {
-            autoClickerButton.interactable = true;
+     //   if (cookie >= costToUpgrade)
+     //   {
+           // autoClickerButton.interactable = true;
 
-        }
-        else
-            autoClickerButton.interactable = false;
+      //  }
+      //  else
+     //       autoClickerButton.interactable = false;
     }
 
 
@@ -63,14 +66,22 @@ public class ClickerHandlerDummy : MonoBehaviour
             yield return new WaitForSeconds(3f);
             cookie += cookiesPerTick;
             UpdateCookieText();
+            UpdateAutoClickText();
         }
     }
 
     public void addCookiesPerTick()
     {
-        //if()
+        if(cookie >= autoclickCostToUpgrade)
+        {
+            cookie -= autoclickCostToUpgrade;
+            cookiesPerTick++;
+            autoclickCostToUpgrade = autoclickCostToUpgrade * 2;
+            UpdateCookieText();
+            UpdateAutoClickText();
+        }
         autoClickerButton.interactable = true;
-        cookiesPerTick++;
+        
     }
 
     /*public void AutoClick()
@@ -113,8 +124,8 @@ public class ClickerHandlerDummy : MonoBehaviour
             UpdateUpgradeText();
 
         }
-        else
-            upgradeClickerButton.interactable = false;
+       // else
+            //upgradeClickerButton.interactable = false;
 
     }
 
@@ -124,6 +135,13 @@ public class ClickerHandlerDummy : MonoBehaviour
         upgradeText.text = "Upgrade " + costToUpgrade;
 
 
+
+    }
+
+    private void UpdateAutoClickText()
+    {
+        autoClickUpgradeText.text = "Upgrade " + autoclickCostToUpgrade;
+             
 
     }
     private void UpdateCookieText()

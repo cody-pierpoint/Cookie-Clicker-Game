@@ -586,9 +586,11 @@ MonoBehaviour:
   cookiesPerTick: 0
   points: {fileID: 19862640}
   upgradeText: {fileID: 1220935436}
+  autoClickUpgradeText: {fileID: 833861991}
   upgradeClickerButton: {fileID: 131559422}
   autoClickerButton: {fileID: 1484190204}
   costToUpgrade: 5
+  autoclickCostToUpgrade: 25
 --- !u!4 &754352605
 Transform:
   m_ObjectHideFlags: 0
