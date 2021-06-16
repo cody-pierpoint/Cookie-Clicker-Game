@@ -39,6 +39,7 @@ public class ClickerHandlerDummy : MonoBehaviour
     }
     public void PointAdding()
     {
+        //cookie total updated based on cookies per click;
         cookie += cookiesPerClick;
 
         UpdateCookieText();
@@ -46,24 +47,19 @@ public class ClickerHandlerDummy : MonoBehaviour
 
     }
 
-    public void UpgradeUnlocked()
-    {
-     //   if (cookie >= costToUpgrade)
-     //   {
-           // autoClickerButton.interactable = true;
 
-      //  }
-      //  else
-     //       autoClickerButton.interactable = false;
-    }
 
 
     IEnumerator AutoClick()
     {
+
         while (true)
         {
+
             Debug.Log("autoClick Added");
+
             yield return new WaitForSeconds(3f);
+            //add cookies based on cookies per tick variable;
             cookie += cookiesPerTick;
             UpdateCookieText();
             UpdateAutoClickText();
@@ -72,53 +68,35 @@ public class ClickerHandlerDummy : MonoBehaviour
 
     public void addCookiesPerTick()
     {
+        //if cookies is greater than or equal to the auto click cost
         if(cookie >= autoclickCostToUpgrade)
         {
+            //minus the cost from cookies
             cookie -= autoclickCostToUpgrade;
+            //cookies per tickk +1;
             cookiesPerTick++;
+            //cost of autoclick upgrade is doubled;
             autoclickCostToUpgrade = autoclickCostToUpgrade * 2;
             UpdateCookieText();
             UpdateAutoClickText();
         }
+        //
         autoClickerButton.interactable = true;
         
     }
 
-    /*public void AutoClick()
-    {
-
-       
-      
-        while (count <= 10)
-        {
-            count++;
-            Debug.Log(count);
-            if (count >= 10)
-            {
-                cookie++;
-                UpdateCookieText();
-            }
-            count++;
-
-
-        }
-        if (count >= 10)
-        {
-            cookie++;
-        }
-        else
-            count++;
-        UpdateCookieText();
-
-    }*/
-
     public void UpgradeCookiePerClick()
     {
+        //if cookies are >= cost of upgrade
         if (cookie >= costToUpgrade)
         {
+            //upgrade button is interactable
             upgradeClickerButton.interactable = true;
+            //cookies - cost;
             cookie -= costToUpgrade;
+            //cookies per click +1
             cookiesPerClick++;
+            //upgrade cost doubled
             costToUpgrade = costToUpgrade * 2;
             UpdateCookieText();
             UpdateUpgradeText();
@@ -131,7 +109,7 @@ public class ClickerHandlerDummy : MonoBehaviour
 
     private void UpdateUpgradeText()
     {
-
+        //update text to display upgrade Cost
         upgradeText.text = "Upgrade " + costToUpgrade;
 
 
@@ -140,21 +118,26 @@ public class ClickerHandlerDummy : MonoBehaviour
 
     private void UpdateAutoClickText()
     {
+        //update text to display upgrade Cost
         autoClickUpgradeText.text = "Upgrade " + autoclickCostToUpgrade;
              
 
     }
     private void UpdateCookieText()
     {
+        //cookies display shoes cookies + "Cookies"
         points.text = cookie + "Cookie";
         switch (cookie)
         {
+            //if 0 cookies display text "No Cookies"
             case 0:
                 points.text = "No Cookies";
                 break;
+                //if 1 cookie Display text "One Cookie"
             case 1:
                 points.text = "One Cookie";
                 break;
+                //if cookies are greater than 0 or 1 display Text Cookies;
             default:
                 points.text = cookie + " Cookies";
                 break;
